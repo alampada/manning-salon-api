@@ -1,7 +1,6 @@
 import { Alert } from 'react-bootstrap';
 import {appNotification} from './app-notification';
 import React, { Component, Fragment } from 'react';
-import { ThemeConsumer } from 'react-bootstrap/esm/ThemeProvider';
 
 const TEN_SECONDS = 10 * 1000;
 
@@ -54,7 +53,7 @@ class appNotificationComponent extends Component {
         const {show, title, message, variant } = this.state
 
         return <Fragment> 
-            {show == true && <div className="message-container">
+            {show === true && <div className="message-container">
                 <div className="container">
                     <Alert variant={variant} onClose={() => this.reset()} dismissible>
                         <Alert.Heading>{title}</Alert.Heading>
