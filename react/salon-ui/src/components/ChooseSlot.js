@@ -28,10 +28,8 @@ class ChooseSlot extends Component {
     }
 
     handleSubmit(event) {
+        this.setState({slots: []})
         event.preventDefault();
-        console.log('Submit');
-        console.log(event.target);
-        console.log(this.state.date);
         if (!this.validateDate(this.state.date)) {
             appNotification.showError('Invalid date: ' + this.state.date);
             return;
@@ -39,12 +37,19 @@ class ChooseSlot extends Component {
         loadingIndicator.show();
         API.fetchSlots(this.props.match.params.serviceId, this.state.date)
             .then(res => res.json()).then(results => this.onReceiveData(results))
+            .catch(errorObject => this.onError(errorObject));
     }
 
 
     onReceiveData(slots) {
         loadingIndicator.hide();
         this.setState({slots: slots, slotDate: this.state.date})
+    }
+
+    onError(error) {
+        console.log(error);
+        loadingIndicator.hide();
+        appNotification.showError("unable to retrieve slots");
     }
 
     render() {
