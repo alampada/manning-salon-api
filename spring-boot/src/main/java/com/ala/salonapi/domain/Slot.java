@@ -11,9 +11,14 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AccessLevel;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 @Entity
+@RequiredArgsConstructor
+@NoArgsConstructor(access= AccessLevel.PRIVATE, force=true)
 @Data
 public class Slot {
 
@@ -25,23 +30,23 @@ public class Slot {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
-	private LocalDateTime confirmedAt;
+	private final LocalDateTime confirmedAt;
 
-	private LocalDateTime lockedAt;
+	private final LocalDateTime lockedAt;
 
-	private LocalDateTime slotFor;
+	private final LocalDateTime slotFor;
 
-	private SlotStatus status;
+	private final SlotStatus status;
 
-	private String stylistName;
+	private final String stylistName;
 
 	@ManyToMany
 	@JsonIgnore
-	private Set<SalonServiceDetail> availableServices;
+	private final Set<SalonServiceDetail> availableServices;
 
 	@ManyToOne
 	@JsonIgnore
-	private SalonServiceDetail selectedService;
+	private final SalonServiceDetail selectedService;
 }
 
 

@@ -5,9 +5,14 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import lombok.AccessLevel;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 @Entity
+@RequiredArgsConstructor
+@NoArgsConstructor(access= AccessLevel.PRIVATE, force=true)
 @Data
 public class SalonServiceDetail {
 
@@ -15,11 +20,11 @@ public class SalonServiceDetail {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
-	private String description;
+	private final String description;
 
-	private String name;
+	private final String name;
 
-	private Long price;
+	private final Long price;
 
-	private int time_in_minutes;
+	private final int time_in_minutes;
 }
