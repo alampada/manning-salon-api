@@ -1,7 +1,6 @@
 package com.ala.salonapi.domain;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.Set;
 
 import javax.persistence.Entity;
@@ -11,11 +10,16 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 @Entity
 @Data
 public class Slot {
+
+	public enum  SlotStatus {
+		AVAILABLE,LOCKED,CONFIRMED,CANCELLED
+	}
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,12 +36,12 @@ public class Slot {
 	private String stylistName;
 
 	@ManyToMany
+	@JsonIgnore
 	private Set<SalonServiceDetail> availableServices;
 
 	@ManyToOne
+	@JsonIgnore
 	private SalonServiceDetail selectedService;
 }
 
-enum  SlotStatus {
-	AVAILABLE,LOCKED,CONFIRMED,CANCELLED
-}
+
