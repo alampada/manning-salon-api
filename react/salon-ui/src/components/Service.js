@@ -17,7 +17,7 @@ export class Service extends Component {
                 <Card.Title className="font-weight-bold">${this.state.service.price}</Card.Title>
                 <Card.Subtitle>{this.state.service.description}</Card.Subtitle>
                 <Card.Text>{this.state.service.time_in_minutes} minutes</Card.Text>
-                <Button variant="primary">Book now</Button>
+                <Button variant="primary" href={"/chooseslot/" + this.state.service.id + "/" + this.state.service.name}>Book now</Button>
             </Card.Body>
         
         </Card>
