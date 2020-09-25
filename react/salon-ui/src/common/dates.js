@@ -10,3 +10,9 @@ export function validateDateFormat(dateStr, format = 'yyyy-MM-dd') {
 export function showHours(dateStr) {
     return dayjs(dateStr).format('hh:mm A');
 }
+
+export function getDayDifference(date) {
+    var today = new Date();
+    today.setHours(0,0,0,0);
+    return dayjs(date).diff(dayjs(today), 'day');
+}

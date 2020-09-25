@@ -24,7 +24,7 @@ class ChooseSlot extends Component {
     }
 
     validateDate(date) {
-        return DateUtil.validateDateFormat(date)
+        return DateUtil.validateDateFormat(date) && DateUtil.getDayDifference(date) >= 1;
     }
 
     handleSubmit(event) {
