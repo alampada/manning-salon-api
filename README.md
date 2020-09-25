@@ -23,6 +23,6 @@ Start the spring boot app through intelliJ or otherwise
 ## Run the react app
 
 ```
-cd react
+cd react/salon-ui
 yarn start
 ```
