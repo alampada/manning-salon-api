@@ -3,13 +3,16 @@ package com.ala.salonapi.service;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
+import com.ala.salonapi.controller.api.ConfirmationResponse;
 import com.ala.salonapi.controller.api.PaymentRequest;
 import com.ala.salonapi.domain.Payment;
 import com.ala.salonapi.domain.SalonServiceDetail;
 import com.ala.salonapi.domain.Slot;
+import com.ala.salonapi.domain.Ticket;
 import com.ala.salonapi.domain.repository.PaymentRepository;
 import com.ala.salonapi.domain.repository.SalonServiceDetailRepository;
 import com.ala.salonapi.domain.repository.SlotRepository;
+import com.ala.salonapi.domain.repository.TicketRepository;
 import com.ala.salonapi.exception.SalonException;import lombok.AllArgsConstructor;
 
 import org.springframework.stereotype.Service;
@@ -23,6 +26,10 @@ public class BookingService {
 	private final SalonServiceDetailRepository salonServiceDetailRepository;
 
 	private final PaymentRepository paymentRepository;
+
+	private final TicketRepository ticketRepository;
+
+	private final SalonDetailsService salonDetailsService;
 
 	private final StripePaymentService stripePaymentService;
 
@@ -56,5 +63,34 @@ public class BookingService {
 		slot.setStatus(Slot.SlotStatus.LOCKED);
 
 		return payment;
+	}
+
+	public ConfirmationResponse confirmPayment(long id) {
+		Payment payment = paymentRepository.findById(id).orElseThrow(
+				() -> new SalonException("Invalid Payment"));
+		if (payment.getStatus() == Payment.PaymentStatus.SUCCESS) {
+			throw  new SalonException("Payment already confirmed");
+		}
+		if (!stripePaymentService.isPaymentSuccessful(payment.getIntentId())) {
+			throw  new SalonException("Payment not successful");
+		}
+		Ticket ticket = Ticket.builder()
+				.payment(payment)
+				.ticketStatus(Ticket.Status.BOOKED)
+				.build();
+
+		payment.getSlot().setStatus(Slot.SlotStatus.CONFIRMED);
+
+		ticketRepository.save(ticket);
+
+		return ConfirmationResponse.builder()
+				.ticket(ticket)
+				.salonDetails(salonDetailsService.getSalonDetails())
+				.build();
+	}
+
+	public Ticket getTicket(long id) {
+		return ticketRepository.findById(id)
+				.orElseThrow(() -> new SalonException("Ticket not valid"));
 	}
 }

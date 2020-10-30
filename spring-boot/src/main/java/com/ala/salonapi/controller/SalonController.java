@@ -7,22 +7,23 @@ import java.time.LocalTime;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 
+import com.ala.salonapi.controller.api.ConfirmationResponse;
 import com.ala.salonapi.controller.api.PaymentRequest;
 import com.ala.salonapi.domain.Payment;
 import com.ala.salonapi.domain.SalonServiceDetail;
 import com.ala.salonapi.domain.Slot;
+import com.ala.salonapi.domain.Ticket;
 import com.ala.salonapi.domain.repository.SalonServiceDetailRepository;
 import com.ala.salonapi.domain.repository.SlotRepository;
 import com.ala.salonapi.service.BookingService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.AllArgsConstructor;
-
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -57,11 +58,24 @@ public class SalonController {
 				start, end);
 	}
 
-	@PostMapping(value = "/api/payments/initiate")
+	@PostMapping(value = "/api/payments/initiate", produces = "application/json")
 	@ApiOperation("InitiatePaymentAPI")
 	@Transactional
 	public Payment createPayment(@RequestBody @Valid PaymentRequest paymentRequest) {
 		return bookingService.createPayment(paymentRequest);
+	}
+
+	@PutMapping(value = "/api/payments/confirm/{id}", produces = "application/json")
+	@ApiOperation("VerifyPaymentAndConfirmSlotAPI")
+	@Transactional
+	public ConfirmationResponse confirmPayment(@PathVariable long id) {
+		return bookingService.confirmPayment(id);
+	}
+
+	@GetMapping(value = "/api/tickets/{id}")
+	@ApiOperation("VerifyTicketAPI")
+	public Ticket getTicket(@PathVariable long id) {
+		return bookingService.getTicket(id);
 	}
 
 }

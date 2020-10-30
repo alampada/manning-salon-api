@@ -27,11 +27,20 @@ public class StripePaymentService {
 				.setAmount(amount)
 				.setCurrency("USD")
 				.build();
-		RequestOptions requestOptions = RequestOptions.builder()
-				.setApiKey(stripeKey)
-				.build();
-		PaymentIntent paymentIntent = PaymentIntent.create(createParams, requestOptions);
+		PaymentIntent paymentIntent = PaymentIntent.create(createParams, buildRequestOptions());
 		return new PaymentIntentDetails(paymentIntent.getId(), paymentIntent.getClientSecret(), paymentIntent
 				.getAmount());
+	}
+
+	@SneakyThrows
+	public boolean isPaymentSuccessful(String intentId) {
+		return "succeeded".equals(PaymentIntent.retrieve(intentId,
+				buildRequestOptions()).getStatus());
+	}
+
+	private RequestOptions buildRequestOptions() {
+		return RequestOptions.builder()
+				.setApiKey(stripeKey)
+				.build();
 	}
 }
