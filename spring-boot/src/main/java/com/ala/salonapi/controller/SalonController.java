@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
+import com.ala.salonapi.domain.Payment;
 import com.ala.salonapi.domain.SalonServiceDetail;
 import com.ala.salonapi.domain.Slot;
 import com.ala.salonapi.domain.repository.SalonServiceDetailRepository;
@@ -12,9 +13,11 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.AllArgsConstructor;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -44,6 +47,12 @@ public class SalonController {
 		final LocalDateTime end = LocalDateTime.of(LocalDate.parse(formattedDate), LocalTime.MAX);
 		return slotRepository.findSlotsByAvailableServicesAndStatusAndSlotForBetween(salonServiceDetail, Slot.SlotStatus.AVAILABLE,
 				start, end);
+	}
+
+	@PostMapping(value = "/api/payments/initiate")
+	public ResponseEntity<Payment> createPayment() {
+		// TODO: Implement
+		return null;
 	}
 
 }
