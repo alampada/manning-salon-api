@@ -4,11 +4,16 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
+import javax.transaction.Transactional;
+import javax.validation.Valid;
+
+import com.ala.salonapi.controller.api.PaymentRequest;
 import com.ala.salonapi.domain.Payment;
 import com.ala.salonapi.domain.SalonServiceDetail;
 import com.ala.salonapi.domain.Slot;
 import com.ala.salonapi.domain.repository.SalonServiceDetailRepository;
 import com.ala.salonapi.domain.repository.SlotRepository;
+import com.ala.salonapi.service.BookingService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.AllArgsConstructor;
@@ -18,6 +23,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -30,6 +36,8 @@ public class SalonController {
 	private final SalonServiceDetailRepository salonServiceDetailRepository;
 
 	private final SlotRepository slotRepository;
+
+	private final BookingService bookingService;
 
 	@GetMapping(value = "/retrieveAvailableSalonServices", produces = "application/json")
 	@ApiOperation("RetrieveAvailableSalonServicesAPI")
@@ -50,9 +58,9 @@ public class SalonController {
 	}
 
 	@PostMapping(value = "/api/payments/initiate")
-	public ResponseEntity<Payment> createPayment() {
-		// TODO: Implement
-		return null;
+	@Transactional
+	public Payment createPayment(@RequestBody @Valid PaymentRequest paymentRequest) {
+		return bookingService.createPayment(paymentRequest);
 	}
 
 }

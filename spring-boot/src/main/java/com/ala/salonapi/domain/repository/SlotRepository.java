@@ -13,5 +13,7 @@ public interface SlotRepository extends CrudRepository<Slot, Integer> {
 	List<Slot> findSlotsByAvailableServicesAndStatusAndSlotForBetween(SalonServiceDetail salonServiceDetail, Slot.SlotStatus status,
 			LocalDateTime start, LocalDateTime end);
 
+	Slot findSlotByIdAndAvailableServicesAndStatus(int id, SalonServiceDetail salonServiceDetail, Slot.SlotStatus status);
+
 }
 

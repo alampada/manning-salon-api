@@ -34,10 +34,18 @@ class SlotRepositoryTest {
 		SalonServiceDetail serviceDetail2 = new SalonServiceDetail("description2", "name2", 100L, 10);
 		testEntityManager.persist(serviceDetail);
 		testEntityManager.persist(serviceDetail2);
-		Slot slot = new Slot( null, null, LocalDateTime.now(), Slot.SlotStatus.AVAILABLE, "foo",
-				Set.of(serviceDetail), null);
-		Slot slot2 = new Slot( null, null, LocalDateTime.now(), Slot.SlotStatus.AVAILABLE, "foo",
-				Set.of(serviceDetail2), null);
+
+		Slot slot = Slot.builder()
+				.slotFor(LocalDateTime.now())
+				.status(Slot.SlotStatus.AVAILABLE)
+				.availableServices(Set.of(serviceDetail))
+				.build();
+
+		Slot slot2 = Slot.builder()
+				.slotFor(LocalDateTime.now())
+				.status(Slot.SlotStatus.AVAILABLE)
+				.availableServices(Set.of(serviceDetail2))
+				.build();
 
 		testEntityManager.persist(slot);
 		testEntityManager.persist(slot2);

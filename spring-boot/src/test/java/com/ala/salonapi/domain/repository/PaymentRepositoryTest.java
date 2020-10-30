@@ -33,8 +33,11 @@ class PaymentRepositoryTest {
 	@Test
 	public void testCreatePayment() {
 		SalonServiceDetail serviceDetail = new SalonServiceDetail("description", "name", 100L, 10);
-		Slot slot = new Slot( null, null, LocalDateTime.now(), Slot.SlotStatus.AVAILABLE, "foo",
-				Set.of(serviceDetail), null);
+//		Slot slot = new Slot( null, null, LocalDateTime.now(), Slot.SlotStatus.AVAILABLE, "foo",
+//				Set.of(serviceDetail), null);
+		Slot slot = Slot.builder()
+				.availableServices(Set.of(serviceDetail))
+				.build();
 		Payment payment = Payment.builder()
 				.amount(1234)
 				.clientSecret("client-secret")
@@ -45,14 +48,14 @@ class PaymentRepositoryTest {
 				.phoneNumber("phone-no")
 				.status(Payment.PaymentStatus.SUCCESS)
 				.slot(slot)
-				.salonServiceDetail(serviceDetail)
+				.selectedService(serviceDetail)
 				.build();
 
 		Payment persisted = testEntityManager.persist(payment);
 
 		assertThat(persisted.getId()).isGreaterThan(0);
 		assertThat(persisted.getSlot()).isEqualTo(slot);
-		assertThat(persisted.getSalonServiceDetail()).isEqualTo(serviceDetail);
+		assertThat(persisted.getSelectedService()).isEqualTo(serviceDetail);
 		assertThat(persisted.getCreated()).isCloseTo(LocalDateTime.now(), within(1, ChronoUnit.MINUTES));
 		assertThat(persisted.getUpdated()).isCloseTo(LocalDateTime.now(), within(1, ChronoUnit.MINUTES));
 	}

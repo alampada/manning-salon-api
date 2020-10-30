@@ -54,5 +54,5 @@ public class Payment {
 	private Slot slot;
 
 	@OneToOne
-	private SalonServiceDetail salonServiceDetail;
+	private SalonServiceDetail selectedService;
 }
