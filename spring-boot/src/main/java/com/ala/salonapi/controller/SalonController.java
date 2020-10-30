@@ -58,6 +58,7 @@ public class SalonController {
 	}
 
 	@PostMapping(value = "/api/payments/initiate")
+	@ApiOperation("InitiatePaymentAPI")
 	@Transactional
 	public Payment createPayment(@RequestBody @Valid PaymentRequest paymentRequest) {
 		return bookingService.createPayment(paymentRequest);
