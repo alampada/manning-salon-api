@@ -10,6 +10,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 import ChooseService from './components/ChooseService'
 import ChooseSlot from './components/ChooseSlot'
+import PaymentContainer from './components/PaymentContainer'
 import AppNotificationComponent from './components/app-notification/app-notification-component'
 import LoadingIndicatorComponent from './components/loader/loading-indicator-component';
 
@@ -25,6 +26,7 @@ function App() {
             <div className="padding-container">
               <Switch>
                 <Route path="/chooseslot/:serviceId/:serviceName" component={ChooseSlot}/>
+                <Route path="/makepayment/:slotId/:serviceId/:serviceName" component={PaymentContainer}/>
                 <Route path="/" component={ChooseService}/>
               </Switch>
             </div>

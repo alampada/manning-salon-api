@@ -12,7 +12,7 @@ export class Slot extends Component {
                 <Card.Body>
                     <Card.Title className="font-weight-bold">{this.props.slot.stylistName}</Card.Title>
                     <Card.Text>Slot Time {DateUtil.showHours(this.props.slot.slotFor)}</Card.Text>
-                    <Button variant="primary">Book this slot</Button>
+                    <Button variant="primary" href={"/makepayment/" + this.props.slot.id + "/" + this.props.serviceId + "/" + this.props.serviceName}>Book this slot</Button>
                 </Card.Body>
             </Card>
         )

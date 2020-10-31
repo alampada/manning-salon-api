@@ -72,7 +72,7 @@ class ChooseSlot extends Component {
            
             {slots.length > 0 && <h3>Available slots on {slotDate}</h3>}
 
-            <CardColumns>{this.state.slots.map(slot => <Slot slot={slot} serviceName={this.props.match.params.serviceName}/>)} </CardColumns>
+            <CardColumns>{this.state.slots.map(slot => <Slot slot={slot} serviceName={this.props.match.params.serviceName} serviceId={this.props.match.params.serviceId}/>)} </CardColumns>
             
             </div>
         )
