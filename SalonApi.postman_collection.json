@@ -1,0 +1,133 @@
+{
+	"info": {
+		"_postman_id": "9471cff6-a66d-4a3b-97b8-f380f30c5359",
+		"name": "SalonApi",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Verify Ticket",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/services/api/tickets/6",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"services",
+						"api",
+						"tickets",
+						"6"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "RetrieveAvailableSalonServices",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/services/retrieveAvailableSalonServices",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"services",
+						"retrieveAvailableSalonServices"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "RetrieveAvailableSlots",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/services/retrieveAvailableSlots/1/2020-12-01",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"services",
+						"retrieveAvailableSlots",
+						"1",
+						"2020-12-01"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Verify payment",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/services/api/payments/confirm/4",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"services",
+						"api",
+						"payments",
+						"confirm",
+						"4"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Initiate Payment",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\" : \"foo@email.com\",\n    \"firstName\": \"foo\",\n    \"lastName\" : \"bar\",\n    \"phoneNumber\" : \"1234567890\",\n    \"selectedSalonServiceDetailId\": 100,\n    \"slotId\" : 1119\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/services/api/payments/initiate",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"services",
+						"api",
+						"payments",
+						"initiate"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
