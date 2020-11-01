@@ -9,6 +9,7 @@ export default function PayWithStripe(props) {
     const elements = useElements();
     console.log(props);
     const secret = props.clientSecret;
+    const callback = props.paymentDoneCallback;
 
     const handleSubmit = async (event) => {
         console.log(event);
@@ -20,8 +21,7 @@ export default function PayWithStripe(props) {
                 payment_method: { card: elements.getElement(CardElement) }
             }
         );
-
-        console.log(result);
+        callback(result.paymentIntent.status);
     };
 
     return (

@@ -10,6 +10,17 @@ export function fetchSlots(serviceId, slotDate) {
     return fetch(API_URL + '/api/services/retrieveAvailableSlots/' + serviceId + '/' + slotDate);
 }
 
+export function confirmPayment(paymentId) {
+    return fetch(API_URL + '/api/services/api/payments/confirm/' + paymentId ,
+    {
+        method: 'put'
+    });
+}
+
+export function downloadTicket(ticketId) {
+    return fetch(API_URL + '/api/services/api/tickets/' + ticketId);
+}
+
 export function initiatePayment(slotId, serviceId, firstname, lastName, phone, email) {
     return fetch(API_URL + '/api/services/api/payments/initiate', 
         { 

@@ -11,6 +11,10 @@ export function showHours(dateStr) {
     return dayjs(dateStr).format('hh:mm A');
 }
 
+export function formatDate(dateStr) {
+    return dayjs(dateStr).format('ddd MMM D YYYY');
+}
+
 export function getDayDifference(date) {
     var today = new Date();
     today.setHours(0,0,0,0);

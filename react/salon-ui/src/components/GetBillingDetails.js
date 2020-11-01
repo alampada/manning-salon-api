@@ -25,7 +25,7 @@ class GetBillingDetails extends Component {
             this.state.formEmail
         )
         .then(res => res.json())
-        .then(results => this.props.secretCallback(results.clientSecret));
+        .then(results => this.props.paymentInitCallback(results.id, results.clientSecret));
     }
 
     handleUpdate(event) {
