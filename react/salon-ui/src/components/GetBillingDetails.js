@@ -16,8 +16,6 @@ class GetBillingDetails extends Component {
 
     handleSubmit(event) {
         event.preventDefault();
-        console.log(event);
-        console.log(this.state);
         API.initiatePayment(
             this.props.slotId,
             this.props.serviceId,
@@ -26,13 +24,12 @@ class GetBillingDetails extends Component {
             this.state.formPhone,
             this.state.formEmail
         )
-        
+        .then(res => res.json())
+        .then(results => this.props.secretCallback(results.clientSecret));
     }
 
     handleUpdate(event) {
-        this.setState({[event.target.id] : event.target.value });
-        console.log(this.state);
-    }
+        this.setState({[event.target.id] : event.target.value });    }
 
     render() {
         return (

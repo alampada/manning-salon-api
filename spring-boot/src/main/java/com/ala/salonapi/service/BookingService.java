@@ -79,7 +79,13 @@ public class BookingService {
 				.ticketStatus(Ticket.Status.BOOKED)
 				.build();
 
+		payment.setStatus(Payment.PaymentStatus.SUCCESS);
+
 		payment.getSlot().setStatus(Slot.SlotStatus.CONFIRMED);
+
+		payment.getSlot().setConfirmedAt(LocalDateTime.now());
+
+		payment.getSlot().setSelectedService(payment.getSelectedService());
 
 		ticketRepository.save(ticket);
 

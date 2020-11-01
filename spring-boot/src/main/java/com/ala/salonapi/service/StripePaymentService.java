@@ -24,7 +24,7 @@ public class StripePaymentService {
 	@SneakyThrows
 	public PaymentIntentDetails createIntent(long amount) {
 		PaymentIntentCreateParams createParams = PaymentIntentCreateParams.builder()
-				.setAmount(amount)
+				.setAmount(amount * 100)
 				.setCurrency("USD")
 				.build();
 		PaymentIntent paymentIntent = PaymentIntent.create(createParams, buildRequestOptions());
